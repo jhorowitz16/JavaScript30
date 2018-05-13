@@ -59,6 +59,45 @@
 
 <script>
 
+  /*
+  Lessons Learned
+
+  * document.querySelector('div[data-key=100]')
+  * escape with ` .... "${e.keyCode}"
+
+
+
+   */
+
+  function transitionEnd(e) {
+    console.log("property name: ", e.propertyName);
+    if (e.propertyName == 'transform') {
+      e.target.classList.remove('playing');
+      console.log('mmm');
+    }
+    else {
+      console.log(e);
+      console.log('here');
+    }
+  }
+
+    const keys = document.querySelectorAll('.key');
+    console.log('keys: ', keys);
+    keys.forEach(key => key.addEventListener('transitionend', transitionEnd));
+
+    window.addEventListener('keydown', function(e) {
+      console.log(e.keyCode);
+      const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+      const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+      console.log(audio);
+      console.log(key);
+      if(audio) {
+        audio.currentTime = 0;
+        audio.play();
+        key.classList.add('playing');
+      }
+    });
+
 </script>
 
 
